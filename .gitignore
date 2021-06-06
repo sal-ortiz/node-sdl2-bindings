@@ -1,0 +1,6 @@
+# build and env artifacts
+build
+node_modules
+
+# editor artifacts
+.*.sw*
