@@ -11,6 +11,7 @@
 #include "./lib/cpuinfo.h"
 #include "./lib/endian.h"
 #include "./lib/bits.h"
+#include "./lib/power.h"
 
 
 #ifndef DECLARE_NAPI_METHOD
@@ -193,6 +194,13 @@ napi_value Export(napi_env env, napi_value exports) {
 
   status = napi_define_properties(env, exports, 1, &mostsignificantbitindex32Desc);
   assert(status == napi_ok);
+
+
+  // Power Management Category
+  //napi_property_descriptor getpowerinfoDesc = DECLARE_NAPI_METHOD("SDL_GetPowerInfo", NAPI_SDL_GetPowerInfo);
+
+  //status = napi_define_properties(env, exports, 1, &getpowerinfoDesc);
+  //assert(status == napi_ok);
 
 
   return exports;
