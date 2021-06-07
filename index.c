@@ -14,6 +14,23 @@
 #include "./lib/power.h"
 
 
+#ifndef EXPORT_VALUE
+
+  #define EXPORT_VALUE(targ, id, val)                             \
+                                                                  \
+    do {                                                          \
+      napi_status status;                                         \
+      napi_value napi_val;                                        \
+                                                                  \
+      status = napi_create_int32(env, val, &napi_val);            \
+      assert(status == napi_ok);                                  \
+                                                                  \
+      status = napi_set_named_property(env, targ, id, napi_val);  \
+      assert(status == napi_ok);                                  \
+    } while (0)
+
+#endif
+
 #ifndef EXPORT_METHOD
 
   #define EXPORT_METHOD(targ, id, meth)                                   \
@@ -34,7 +51,19 @@
 
 napi_value Export(napi_env env, napi_value exports) {
 
+
   // Init Category
+  EXPORT_VALUE(exports, "SDL_INIT_TIMER", SDL_INIT_TIMER);
+  EXPORT_VALUE(exports, "SDL_INIT_AUDIO", SDL_INIT_AUDIO);
+  EXPORT_VALUE(exports, "SDL_INIT_VIDEO", SDL_INIT_VIDEO);
+  EXPORT_VALUE(exports, "SDL_INIT_JOYSTICK", SDL_INIT_JOYSTICK);
+  EXPORT_VALUE(exports, "SDL_INIT_HAPTIC", SDL_INIT_HAPTIC);
+  EXPORT_VALUE(exports, "SDL_INIT_GAMECONTROLLER", SDL_INIT_GAMECONTROLLER);
+  EXPORT_VALUE(exports, "SDL_INIT_EVENTS", SDL_INIT_EVENTS);
+  EXPORT_VALUE(exports, "SDL_INIT_EVERYTHING", SDL_INIT_EVERYTHING);
+  EXPORT_VALUE(exports, "SDL_INIT_NOPARACHUTE", SDL_INIT_NOPARACHUTE);
+
+
   EXPORT_METHOD(exports, "SDL_Init", NAPI_SDL_Init);
   EXPORT_METHOD(exports, "SDL_InitSubSystem", NAPI_SDL_Init);
   EXPORT_METHOD(exports, "SDL_Quit", NAPI_SDL_Quit);
